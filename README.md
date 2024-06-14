@@ -20,7 +20,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## TASKS
 
-
+All the task are completed by Tina Murmu
 - [✔ ] Fix carousel scrolling UI: When navigation buttons are clicked, ensure a new image is shown. Additionally, center the carousel navigation buttons vertically relative to the image.
 - [✔ ] Replace dummy images by fetching each album of post using "https://jsonplaceholder.typicode.com/albums/1/photos" in /api/v1/posts route.
 - [ ✔ ] Make the top nav bar sticky during scrolling.
