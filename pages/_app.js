@@ -20,17 +20,3 @@ MyApp.defaultProps = {
 };
 
 export default MyApp;
-
-
-// import React from 'react';
-// import { WindowWidthProvider } from '../components/hooks/useWindowWidth';
-
-// function MyApp({ Component, pageProps }) {
-//   return (
-//     <WindowWidthProvider>
-//       <Component {...pageProps} />
-//     </WindowWidthProvider>
-//   );
-// }
-
-// export default MyApp;

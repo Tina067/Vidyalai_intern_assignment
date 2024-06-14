@@ -16,8 +16,8 @@ router.get('/', async (req, res) => {
         const user = await fetchUserById(post.id);
         return {
           ...post,
-          images: photos.slice(0, 3).map(photo => ({ url: photo.url })), // Take first 3 photos for the post
-          user, // Include user data in the post
+          images: photos.slice(0, 3).map(photo => ({ url: photo.url })), 
+          user,
         };
       })
     );
