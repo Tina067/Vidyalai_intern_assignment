@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Post from './Post';
 import Container from '../common/Container';
-import { useWindowWidth } from '../hooks/useWindowWidth';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 const PostListContainer = styled.div(() => ({
   display: 'flex',
@@ -35,43 +35,41 @@ const LoadMoreButton = styled.button(() => ({
 export default function Posts() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(0);
 
   const { isSmallerDevice } = useWindowWidth();
-  const postsPerPage = isSmallerDevice ? 5 : 10;
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const { data: newPosts } = await axios.get('/api/v1/posts', {
-        params: { start: page * postsPerPage, limit: postsPerPage },
+    const fetchPost = async () => {
+      const { data: posts } = await axios.get('/api/v1/posts', {
+        params: { start: 0, limit: isSmallerDevice ? 5 : 10 },
       });
-      setPosts(prevPosts => [...prevPosts, ...newPosts]);
+      setPosts(posts);
     };
 
-    fetchPosts();
-  }, [page, postsPerPage]);
+    fetchPost();
+  }, [isSmallerDevice]);
 
   const handleClick = () => {
     setIsLoading(true);
-    setPage(prevPage => prevPage + 1);
-    setIsLoading(false);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
   };
 
   return (
     <Container>
       <PostListContainer>
         {posts.map(post => (
-          <Post key={post.id} post={post} />
+          <Post post={post} />
         ))}
       </PostListContainer>
 
-      {posts.length > 0 && (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <LoadMoreButton onClick={handleClick} disabled={isLoading}>
-            {!isLoading ? 'Load More' : 'Loading...'}
-          </LoadMoreButton>
-        </div>
-      )}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <LoadMoreButton onClick={handleClick} disabled={isLoading}>
+          {!isLoading ? 'Load More' : 'Loading...'}
+        </LoadMoreButton>
+      </div>
     </Container>
-);
+  );
 }
